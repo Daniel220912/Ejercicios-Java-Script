@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Juego adivina el numero</title>
+    <style>
+      html {
+        font-family: sans-serif;
+      }
+
+      body {
+        width: 90%;
+        max-width: 800px;
+        min-width: 480px;
+        margin: 0 auto;
+        background-color: aquamarine;
+      }
+
+      .form input[type="number"] {
+        width: 100px;
+      }
+
+      .lastResult {
+        color: red;
+        padding: 10px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Juego adivina el número</h1>
+    <p>Hemos seleccionado un número aleatorio entre 1 y 70.</p>
+
+    <div class="formularios">
+      <label for="formulario"> Adivina el numero: </label>
+      <input
+        type="number"
+        min="1"
+        max="70"
+        required
+        id="formulario"
+        class="formulario"
+      />
+      <input type="submit" value="Enviar respuesta" class="enviarRespuesta" />
+    </div>
+
+    <div class="resultParas">
+      <p class="intentos"></p>
+      <p class="ultimoResultado"></p>
+      <p class="bajoOalto"></p>
+    </div>
+  </body>
+
+  <script>
+    let numeroRandom = Math.floor(Math.random() * 70) + 1;
+
+    const intentos = document.querySelector(".intentos");
+    const ultimoResultado = document.querySelector(".ultimoResultado");
+    const bajoOalto = document.querySelector(".bajoOalto");
+    const enviarRespuesta = document.querySelector(".enviarRespuesta");
+    const formulario = document.querySelector(".formulario");
+
+    let contadorIntentos = 1;
+    let botonReseteo;
+
+    function marcador() {
+      let respuestaUsuario = Number(enviarRespuesta.value);
+      if (contadorIntentos === 1) {
+        intentos.textContent = "Intentos anteriores: ";
+      }
+      intentos.textContent += respuestaUsuario + " ";
+
+      if (respuestaUsuario === randomNumber) {
+        ultimoResultado.textContent = "¡Enhorabuena! ¡Has acertado!";
+        ultimoResultado.style.backgroundColor = "yellow";
+        bajoOalto.textContent = "";
+        GameOver();
+      } else if (respuestaUsuario === 10) {
+        ultimoResultado.textContent = "¡¡¡Fin del juego!!!";
+        GameOver();
+      } else {
+        ultimoResultado.textContent = "¡Incorrecto!";
+        ultimoResultado.style.backgroundColor = "red";
+        if (respuestaUsuario < randomNumber) {
+          bajoOalto.textContent = "¡El número es muy bajo";
+        } else if (respuestaUsuario > randomNumber) {
+          bajoOalto.textContent = "¡El número es muy grande!";
+        }
+      }
+    }
+    marcador();
+  </script>
+</html>
