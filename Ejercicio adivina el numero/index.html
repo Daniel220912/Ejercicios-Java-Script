@@ -65,30 +65,39 @@
     let botonReseteo;
 
     function marcador() {
-      let respuestaUsuario = Number(enviarRespuesta.value);
+      let respuestaUsuario = Number(formulario.value);
       if (contadorIntentos === 1) {
         intentos.textContent = "Intentos anteriores: ";
       }
       intentos.textContent += respuestaUsuario + " ";
 
-      if (respuestaUsuario === randomNumber) {
+      if (respuestaUsuario === numeroRandom) {
         ultimoResultado.textContent = "¡Enhorabuena! ¡Has acertado!";
         ultimoResultado.style.backgroundColor = "yellow";
         bajoOalto.textContent = "";
-        GameOver();
-      } else if (respuestaUsuario === 10) {
+        setGameOver();
+      } else if (contadorIntentos === 10) {
         ultimoResultado.textContent = "¡¡¡Fin del juego!!!";
-        GameOver();
+        setGameOver();
       } else {
         ultimoResultado.textContent = "¡Incorrecto!";
         ultimoResultado.style.backgroundColor = "red";
-        if (respuestaUsuario < randomNumber) {
+        if (respuestaUsuario < numeroRandom) {
           bajoOalto.textContent = "¡El número es muy bajo";
-        } else if (respuestaUsuario > randomNumber) {
+        } else if (respuestaUsuario > numeroRandom) {
           bajoOalto.textContent = "¡El número es muy grande!";
         }
       }
+
+      contadorIntentos++;
+      formulario.value = "";
+      formulario.focus();
     }
-    marcador();
+
+    enviarRespuesta, addEventListener("click", marcador);
+
+    function terminarJuego() {
+      enviarRespuesta.disabled = true;
+    }
   </script>
 </html>
